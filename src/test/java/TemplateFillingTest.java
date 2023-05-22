@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import org.assertj.core.api.Assertions;
+import org.epam.TemplateFilling;
+import org.epam.Value;
 import org.junit.jupiter.api.Test;
 
 public class TemplateFillingTest {
@@ -9,9 +11,9 @@ public class TemplateFillingTest {
     TemplateFilling templateFilling = new TemplateFilling();
     String template = "This is template with name #{name}. Insert #{some value}";
     templateFilling.setTemplate(template);
-    ArrayList<String> values = new ArrayList<>();
-    values.add("test");
-    values.add("#{value}");
+    ArrayList<Value> values = new ArrayList<>();
+    values.add(new Value("#{name}", "test"));
+    values.add(new Value("#{some value}","#{value}"));
     String result = templateFilling.pasteValues(values);
     Assertions.assertThat(result).isNotEmpty().isEqualTo("This is template with name test. Insert #{value}");
   }
