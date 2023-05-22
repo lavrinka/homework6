@@ -10,11 +10,10 @@ public class WriteToConsole {
 
   public void writeMessageToConsole(){
     ReadFromConsole readFromConsole = new ReadFromConsole();
-    TemplateFilling templateFilling = new TemplateFilling();
-    templateFilling.setTemplate(readFromConsole.readTemplateFromConsole());
+    TemplateFilling templateFilling = readFromConsole.readTemplateFromConsole();
     ReadingValues readingValues = new ReadingValues();
     ArrayList<Value> values = readingValues.readValues(templateFilling.getTemplate());
-    readFromConsole.readValuesFromConsole(values);
+    readFromConsole.readValuesFromConsole();
     System.out.println(templateFilling.pasteValues(values));
   }
 

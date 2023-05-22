@@ -1,0 +1,2 @@
+This is a template with values #{val1} and #{val2}
+#{val2}: 123
