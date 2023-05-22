@@ -1,37 +1,34 @@
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.List;
 import org.assertj.core.api.Assertions;
-import org.epam.TemplateFilling;
-import org.epam.Value;
-import org.epam.read.ReadFromFile;
-import org.junit.jupiter.api.BeforeAll;
+import org.epam.write.WriteToFile;
 import org.junit.jupiter.api.Test;
 
 public class WriteToFileTest {
 
   @Test
-  void shouldIgnoreValuesNotFromTemplate() {
-    Path path = Paths.get("fileWithTemplateWithValuesNotForTemplate.txt");
-
-    ReadFromFile readFromFile = new ReadFromFile(path);
-    readFromFile.readTemplateFromFile();
-    ArrayList<Value> values = readFromFile.readValuesFromFile();
-    WriteToFile writeToFile = new WriteToFile();
-    Assertions.assertThat(writeToFile.writeMessageToFile())
-              .isEqualTo("This is a template with values #{value} and 123");
-  }
-
-  @Test
   void shouldUseLatinForWrite() {
-    Path path = Paths.get("fileWithLatin.txt");
+    String outputFile = "src/test/resources/fileoutput_shouldUseLatinForWrite.txt";
 
-    ReadFromFile readFromFile = new ReadFromFile(path);
-    readFromFile.readTemplateFromFile();
-    ArrayList<Value> values = readFromFile.readValuesFromFile();
-    WriteToFile writeToFile = new WriteToFile();
-    Assertions.assertThat(writeToFile.writeMessageToFile())
-              .isEqualTo("This is a template with values #{value} and 123Ñ");
+    String message = new String("This is a template with values #{value} and 123Ñ".getBytes(StandardCharsets.UTF_8),
+        StandardCharsets.ISO_8859_1);
+    WriteToFile writeToFile = new WriteToFile(outputFile);
+    writeToFile.writeMessageToFile(message);
+
+    try {
+      Path outputPath = Paths.get("src/test/resources/fileoutput_shouldUseLatinForWrite.txt");
+      List<String> read = Files.readAllLines(outputPath);
+      Assertions.assertThat(read.size())
+                .isEqualTo(1);
+      Assertions.assertThat(read.get(0))
+                .isEqualTo("This is a template with values #{value} and 123Ñ");
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
 }

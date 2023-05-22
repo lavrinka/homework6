@@ -1,8 +1,10 @@
 package org.epam.read;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import org.epam.ReadingValues;
@@ -21,8 +23,8 @@ public class ReadFromFile {
     return templateFilling;
   }
 
-  public ReadFromFile(Path filePath) {
-    this.filePath = filePath;
+  public ReadFromFile(String file) {
+    this.filePath = Paths.get(file);
   }
 
   public TemplateFilling readTemplateFromFile() {
@@ -31,7 +33,8 @@ public class ReadFromFile {
 
       if (read.size() > 0) {
         templateFilling = new TemplateFilling();
-        templateFilling.setTemplate(read.get(0));
+        templateFilling.setTemplate(new String(read.get(0)
+                                                   .getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1));
         return templateFilling;
       } else {
         throw new TemplateIsEmpty();
@@ -50,8 +53,8 @@ public class ReadFromFile {
         ReadingValues readingValues = new ReadingValues();
         ArrayList<Value> values = readingValues.readValues(templateFilling.getTemplate());
         for (int i = 1; i < read.size(); i++) {
-          String[] entries = read.get(i)
-                                 .split(": ");
+          String[] entries = new String(read.get(i)
+                                            .getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1).split(": ");
           String oldValue = entries[0];
           String newValue = entries[1];
 
@@ -63,7 +66,7 @@ public class ReadFromFile {
           }
         }
 
-        if(!values.isEmpty()){
+        if (!values.isEmpty()) {
           throw new InvalidNumberOfArgumentsException();
         }
 

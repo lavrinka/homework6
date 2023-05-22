@@ -17,4 +17,18 @@ public class TemplateFillingTest {
     String result = templateFilling.pasteValues(values);
     Assertions.assertThat(result).isNotEmpty().isEqualTo("This is template with name test. Insert #{value}");
   }
+
+  @Test
+  void shouldIgnoreValuesNotFromTemplate() {
+    TemplateFilling templateFilling = new TemplateFilling();
+    String template = "This is a template with values #{val1} and #{val2}";
+    templateFilling.setTemplate(template);
+    ArrayList<Value> values = new ArrayList<>();
+    values.add(new Value("#{val1}", "#{value}"));
+    values.add(new Value("#{some value}", "value to write"));
+    values.add(new Value("#{val2}", "123"));
+    String result = templateFilling.pasteValues(values);
+    Assertions.assertThat(result).isNotEmpty().isEqualTo("This is a template with values #{value} and 123");
+
+  }
 }
