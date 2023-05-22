@@ -9,6 +9,10 @@ public class TemplateFilling {
     this.template = template;
   }
 
+  public String getTemplate(){
+    return this.template;
+  }
+
   public String pasteValues(ArrayList<Value> values){
     String result = template;
     for (Value value: values) {
