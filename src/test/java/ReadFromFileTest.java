@@ -7,6 +7,7 @@ import org.epam.TemplateFilling;
 import org.epam.exception.InvalidNumberOfArgumentsException;
 import org.epam.read.ReadFromFile;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -47,7 +48,9 @@ public class ReadFromFileTest {
     System.out.println("-------------------------");
   }
 
+  //Implement Disabling test on condition
   @Test
+  @DisabledIfEnvironmentVariable(named = "OS", matches = "Windows.*")
   void shouldBeReadLatinFromFile() {
     System.out.println("-------------------------");
     System.out.println("start of shouldBeReadLatinFromFile");
