@@ -15,7 +15,6 @@ public class WriteToFileTest {
   @Test
   void shouldUseLatinForWrite(@TempDir Path tempDir) {
     Path outputFilePath = tempDir.resolve("fileoutput_shouldUseLatinForWrite.txt");
-    System.out.println(outputFilePath.toString());
     String message = new String("This is a template with values #{value} and 123Ñ".getBytes(StandardCharsets.UTF_8),
         StandardCharsets.ISO_8859_1);
     WriteToFile writeToFile = new WriteToFile(outputFilePath.toString());
