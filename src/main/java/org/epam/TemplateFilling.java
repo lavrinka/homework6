@@ -14,11 +14,11 @@ public class TemplateFilling {
   }
 
   public String pasteValues(ArrayList<Value> values){
+    ArrayList<Value> copyValues = (ArrayList<Value>) values.clone();
     String result = template;
-    for (Value value: values) {
-      value.setOldValue(value.getOldValue().replace("{","\\{"));
-      value.setOldValue(value.getOldValue().replace("}","\\}"));
-      result = result.replaceFirst(value.getOldValue(), value.getNewValue());
+    for (Value value: copyValues) {
+      String oldValue = value.getOldValue().replace("{","\\{").replace("}","\\}");
+      result = result.replaceFirst(oldValue, value.getNewValue());
     }
     return result;
   }
