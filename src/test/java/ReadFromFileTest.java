@@ -1,3 +1,6 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.nio.charset.StandardCharsets;
 import org.assertj.core.api.Assertions;
 import org.epam.TemplateFilling;
@@ -26,6 +29,21 @@ public class ReadFromFileTest {
               .isInstanceOf(InvalidNumberOfArgumentsException.class)
               .hasMessageContaining("Invalid number of params");
     System.out.println("end of shouldBeAllValuesInAFile");
+    System.out.println("-------------------------");
+  }
+
+  //Using ExpectedException rule to check exceptions + Assertion mechanism
+  @Test
+  void shouldBeAllValuesInAFileExpectedException() {
+    String inputFile = "src/test/resources/fileWithTemplateWithWrongNumberOfValues.txt";
+    System.out.println("-------------------------");
+    System.out.println("start of shouldBeAllValuesInAFileExpectedException with input: " + inputFile);
+    ReadFromFile readFromFile = new ReadFromFile(inputFile);
+    readFromFile.readTemplateFromFile();
+
+    Throwable thrown = assertThrows(InvalidNumberOfArgumentsException.class, () -> readFromFile.readValuesFromFile());
+    assertEquals("Invalid number of params", thrown.getMessage());
+    System.out.println("end of shouldBeAllValuesInAFileExpectedException");
     System.out.println("-------------------------");
   }
 
