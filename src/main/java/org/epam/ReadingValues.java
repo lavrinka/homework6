@@ -1,10 +1,11 @@
 package org.epam;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadingValues {
-  public ArrayList<Value> readValues(String template){
-    ArrayList<Value> values = new ArrayList<>();
+  public List<Value> readValues(String template){
+    List<Value> values = new ArrayList<>();
     int start = template.indexOf("#{");
     int end = template.indexOf("}",start);
     while(start!=-1 && end !=-1){

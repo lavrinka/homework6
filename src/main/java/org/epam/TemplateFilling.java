@@ -1,6 +1,7 @@
 package org.epam;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TemplateFilling {
   private String template;
@@ -13,8 +14,8 @@ public class TemplateFilling {
     return this.template;
   }
 
-  public String pasteValues(ArrayList<Value> values){
-    ArrayList<Value> copyValues = (ArrayList<Value>) values.clone();
+  public String pasteValues(List<Value> values){
+    List<Value> copyValues = new ArrayList<>(values);
     String result = template;
     for (Value value: copyValues) {
       String oldValue = value.getOldValue().replace("{","\\{").replace("}","\\}");

@@ -44,14 +44,14 @@ public class ReadFromFile {
     }
   }
 
-  public ArrayList<Value> readValuesFromFile() {
-    ArrayList<Value> newValues = new ArrayList<>();
+  public List<Value> readValuesFromFile() {
+    List<Value> newValues = new ArrayList<>();
     try {
       List<String> read = Files.readAllLines(filePath);
 
       if (read.size() > 1) {
         ReadingValues readingValues = new ReadingValues();
-        ArrayList<Value> values = readingValues.readValues(templateFilling.getTemplate());
+        List<Value> values = readingValues.readValues(templateFilling.getTemplate());
         for (int i = 1; i < read.size(); i++) {
           String[] entries = new String(read.get(i)
                                             .getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1).split(": ");

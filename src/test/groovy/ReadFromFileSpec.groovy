@@ -1,8 +1,6 @@
 import org.epam.exception.InvalidNumberOfArgumentsException
 import org.epam.read.ReadFromFile
 
-import static org.junit.jupiter.api.Assertions.assertThrows
-
 public class ReadFromFileSpec extends spock.lang.Specification{
 
     public void "there should be all values in a file"() {
@@ -14,10 +12,13 @@ public class ReadFromFileSpec extends spock.lang.Specification{
         readFromFile.readTemplateFromFile()
 
         when: "we read values we get error"
-        Throwable thrown = assertThrows(InvalidNumberOfArgumentsException.class, () -> readFromFile.readValuesFromFile())
+        readFromFile.readValuesFromFile()
 
-        then: "compare error with error message for InvalidNumberOfArgumentsException"
-        thrown.getMessage() == "Invalid number of params"
+        then: "InvalidNumberOfArgumentsException exception thrown"
+        InvalidNumberOfArgumentsException exception = thrown()
+
+        and: "compare error with error message for InvalidNumberOfArgumentsException"
+        exception.getMessage() == "Invalid number of params"
     }
 
 }

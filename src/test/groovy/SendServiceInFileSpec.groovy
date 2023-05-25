@@ -1,11 +1,8 @@
-import org.assertj.core.api.Assertions
 import org.epam.service.SendServiceInFile
 
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-
-import static org.junit.jupiter.api.Assertions.assertTrue
 
 class SendServiceInFileSpec extends spock.lang.Specification {
 
@@ -22,14 +19,14 @@ class SendServiceInFileSpec extends spock.lang.Specification {
 
         then: "the file with message should exist"
         Path outputFilePath = Paths.get(outputFile)
-        assertTrue(Files.exists(outputFilePath))
+        Files.exists(outputFilePath)
 
         and: "the file should contain one line"
         List<String> read = Files.readAllLines(outputFilePath)
-        Assertions.assertThat(read.size()).isEqualTo(1)
+        read.size() == 1
 
         and: "message should equal to Latin message"
-        Assertions.assertThat(read.get(0)).isEqualTo("This is a templateÑ with values #{value} and 123Ñ")
+        read.get(0) == "This is a templateÑ with values #{value} and 123Ñ"
     }
 
 }

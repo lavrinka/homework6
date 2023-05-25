@@ -20,7 +20,7 @@ public class TemplateFillingTest {
     TemplateFilling templateFilling = new TemplateFilling();
     String template = "This is template with name #{name}. Insert #{some value}";
     templateFilling.setTemplate(template);
-    ArrayList<Value> values = new ArrayList<>();
+    List<Value> values = new ArrayList<>();
     values.add(new Value("#{name}", "test"));
     values.add(new Value("#{some value}", "#{value}"));
     String result = templateFilling.pasteValues(values);
@@ -38,7 +38,7 @@ public class TemplateFillingTest {
     templateFilling.setTemplate("This is template with name #{name}. Insert #{some value}");
     Mockito.when(readFromConsole.readTemplateFromConsole()).thenReturn(templateFilling);
 
-    ArrayList<Value> values = new ArrayList<>();
+    List<Value> values = new ArrayList<>();
     values.add(new Value("#{name}", "test"));
     values.add(new Value("#{some value}", "#{value}"));
     Mockito.when(readFromConsole.readValuesFromConsole()).thenReturn(values);
@@ -46,7 +46,7 @@ public class TemplateFillingTest {
     readFromConsole.readTemplateFromConsole();
 
     TemplateFilling templateFillingMock = readFromConsole.readTemplateFromConsole();
-    ArrayList<Value> valuesMock = readFromConsole.readValuesFromConsole();
+    List<Value> valuesMock = readFromConsole.readValuesFromConsole();
     String result = templateFillingMock.pasteValues(valuesMock);
     Assertions.assertThat(result)
               .isNotEmpty()
@@ -59,7 +59,7 @@ public class TemplateFillingTest {
   @TestFactory
   Stream<DynamicTest> dynamicTestsIgnoreValuesNotFromTemplate() {
 
-    ArrayList<Value> values = new ArrayList<>();
+    List<Value> values = new ArrayList<>();
     values.add(new Value("#{val1}", "#{value}"));
     values.add(new Value("#{some value}", "value to write"));
     values.add(new Value("#{val2}", "123"));
@@ -88,7 +88,7 @@ public class TemplateFillingTest {
     TemplateFilling templateFilling = new TemplateFilling();
     String template = "This is a template with values #{val1} and #{val2}";
     templateFilling.setTemplate(template);
-    ArrayList<Value> values = new ArrayList<>();
+    List<Value> values = new ArrayList<>();
     values.add(new Value("#{val1}", "#{value}"));
     values.add(new Value("#{some value}", "value to write"));
     values.add(new Value("#{val2}", "123"));
@@ -107,7 +107,7 @@ public class TemplateFillingTest {
 
     TemplateFilling templateFilling = readFromFile.readTemplateFromFile();
 
-    ArrayList<Value> values = new ArrayList<>();
+    List<Value> values = new ArrayList<>();
     values.add(new Value("#{val1}", new String("#{value}".getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1)));
     values.add(new Value("#{val2}", new String("123Ñ".getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1)));
 

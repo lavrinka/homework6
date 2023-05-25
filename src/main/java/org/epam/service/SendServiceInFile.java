@@ -1,6 +1,7 @@
 package org.epam.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.epam.TemplateFilling;
 import org.epam.Value;
 import org.epam.read.ReadFromFile;
@@ -12,7 +13,7 @@ public class SendServiceInFile {
     ReadFromFile readFromFile = new ReadFromFile(inputFile);
     TemplateFilling templateFilling = readFromFile.readTemplateFromFile();
 
-    ArrayList<Value> values = readFromFile.readValuesFromFile();
+    List<Value> values = readFromFile.readValuesFromFile();
 
     WriteToFile writeToFile = new WriteToFile(outputFile);
     String message = templateFilling.pasteValues(values);

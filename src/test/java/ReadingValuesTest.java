@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.epam.ReadingValues;
 import org.epam.Value;
@@ -10,10 +11,10 @@ public class ReadingValuesTest {
   void shouldParseValues(){
     ReadingValues readingValues = new ReadingValues();
     String input = "This is template with name #{name}. Insert #{some value}";
-    ArrayList<Value> list = new ArrayList<>();
+    List<Value> list = new ArrayList<>();
     list.add(new Value("#{name}"));
     list.add(new Value("#{some value}"));
-    ArrayList<Value> values = readingValues.readValues(input);
+    List<Value> values = readingValues.readValues(input);
     Assertions.assertThat(values).isNotEmpty().containsAll(list);
   }
 
